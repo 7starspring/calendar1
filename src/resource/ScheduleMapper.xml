@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+<mapper namespace="schedulelist">
+
+	<select id="nurse.schedule.dao.ScheduleMapper.getSelectScheduleList" parameterType="Schedule" resultType="Schedule">
+		select * from schedule
+		where 1=1
+		<if test="jobno!=null and jobno!=''"> and jobno=#{jobno}</if>
+		order by startdate desc
+	</select>
+	<insert id="nurse.schedule.dao.ScheduleMapper.insertSchedule" parameterType="Schedule">
+		insert into schedule (
+			SNO,TYPE,TITLE,
+			STARTDATE,ENDDATE,ALLDAY,
+			URL,MANAGER,DNO,JOBNO,
+			CLASSNAME,
+			backgroundColor,borderColor,textColor
+		) values(
+			to_char(sysdate,'yyyymmdd') || schedule_seq.NEXTVAL,#{type},#{title},
+			#{startdate},#{enddate},#{allday},
+			#{url},#{manager},#{dno},#{jobno},
+			#{className},
+			#{backgroundColor},#{borderColor},#{textColor}
+		)
+	</insert>
+	
+	<select id="nurse.schedule.dao.ScheduleMapper.getEmpList" parameterType="Nurse" resultType="Nurse">
+		select * from nurse where 1=1
+	</select>
+	
+	<delete id="nurse.schedule.dao.ScheduleMapper.deleteSchedule" parameterType="Schedule">
+		delete schedule where sno=#{sno}
+	</delete>
+	<update id="nurse.schedule.dao.ScheduleMapper.updateSchedule" parameterType="Schedule">
+		update schedule set 
+			TYPE=#{type},TITLE=#{title},
+			STARTDATE=#{startdate},ENDDATE=#{enddate},ALLDAY=#{allday},
+			URL=#{url},MANAGER=#{manager},DNO=#{dno},JOBNO=#{jobno},
+			CLASSNAME=#{className},
+			backgroundColor=#{backgroundColor},borderColor=#{borderColor},textColor=#{textColor}
+		where sno=#{sno}
+	</update>
+	<update id="nurse.schedule.dao.ScheduleMapper.dropChangeSchedule" parameterType="Schedule">
+		update schedule set 
+			TYPE=#{type},STARTDATE=#{startdate},ENDDATE=#{enddate}
+		where sno=#{sno}
+	</update>
+	<select id="nurse.schedule.dao.ScheduleMapper.getScheduleTable" parameterType="ScheduleTable" resultType="ScheduleData">
+		select title,jobno,substr(startdate,7,2) as day,type 
+		from schedule
+		where startdate&gt;=#{startYM} and startdate&lt;#{endYM} 
+		and type in ('1','2','3') 
+		and substr(startdate,9,4)!='0000'
+		order by jobno asc, startdate asc
+	</select>
+	
+</mapper>	

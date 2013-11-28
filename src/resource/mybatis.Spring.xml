@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="safeRowBoundsEnabled" value="false" />
+	</settings>
+	<!-- 
+	<typeAliases>
+		<typeAlias alias="Schedule" type="nurse.schedule.vo.Schedule" />
+		<typeAlias alias="ScheduleData" type="nurse.schedule.vo.ScheduleData" />
+		<typeAlias alias="ScheduleTable" type="nurse.schedule.vo.ScheduleTable" />
+	</typeAliases>
+	 -->
+	<!-- xml 파일 mapping -->
+	<!-- 
+	<mappers>
+		<mapper resource="resource/ScheduleMapper.xml"/>
+	</mappers>
+	 -->
+</configuration>
