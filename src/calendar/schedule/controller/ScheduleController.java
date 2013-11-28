@@ -42,9 +42,9 @@ public class ScheduleController {
 	@ResponseBody
 	public String createData(FullCalendar fc){
 		String data = ",{\"title\":\""+fc.getTitle()+"\",\"start\":\""+fc.getStart()+"\"}";
-		
+		System.out.println("data >>> "+data);
 		try{
-    		File file =new File("d:\\project\\13.15.nurse\\calendar\\src\\resource\\Calendar.json");
+    		File file =new File("d:\\project\\13.15.nurse\\calendar\\Calendar.txt");
  
     		if(!file.exists()){
     			file.createNewFile();
@@ -67,7 +67,7 @@ public class ScheduleController {
 		MyStringManager myStringManager = new MyStringManager();
 		String fileData=null;
 		try {
-			fileData=myStringManager.getTextOfFile(new File("d:\\project\\13.15.nurse\\calendar\\src\\resource"), "Calendar.json");
+			fileData=myStringManager.getTextOfFile(new File("d:\\project\\13.15.nurse\\calendar"), "Calendar.txt");
 			fileData = "["+fileData+"]";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

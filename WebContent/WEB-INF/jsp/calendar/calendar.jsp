@@ -53,6 +53,9 @@
 	
 	// 아담쇼의 풀캘린더의 시작
 	function makeCalendar(eventData){
+		//리프레쉬를 위한 기존 정보 삭제
+		$('#calendar').fullCalendar('destroy');
+		
 		var calendar = $('#calendar').fullCalendar({
 			header: {
 				left: 'prev,next today',
@@ -63,6 +66,7 @@
 			selectHelper: true,
 			select: function(start, end, allDay) { // 클릭 시 이벤트 발생
 				var title = prompt('Event Title:');
+				/*
 				if (title) {
 					calendar.fullCalendar('renderEvent',
 						{
@@ -74,6 +78,7 @@
 						true // make the event "stick"
 					);
 				}
+				*/
 				calendar.fullCalendar('unselect');
 				
 				createData();
@@ -89,7 +94,7 @@
 		$.post("calendar.do?method=create",
 			params,
 			function(data){
-				console.log("createData() called >>> \n"+data)
+				console.log("createData() called! returned value >>> \n"+data)
 				getData(data);
 			}
 		);
@@ -98,11 +103,11 @@
 	// 처음 로딩 시 data값은 없음
 	function getData(data){
 		
-		console.log("data >>> \n" + data);
-		console.log("jsonList >>> \n" + '${jsonList}');
+		console.log("1. data >>> \n" + data);
+		console.log("2. jsonList >>> \n" + '${jsonList}');
 		
 		var sourceData = data || '${jsonList}';
-		console.log("sourceData >>> \n" + sourceData);
+		console.log("3. sourceData >>> \n" + sourceData);
 		
 		if($.type(sourceData)=="array") {
 			makeCalendar(sourceData);
